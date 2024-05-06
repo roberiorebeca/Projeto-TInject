@@ -1,8 +1,11 @@
 ﻿{####################################################################################################################
                               TINJECT - Componente de comunicação (Não Oficial)
-                                         (Não Oficial WhatsApp)
+                                           www.tinject.com.br
+                                            Novembro de 2019
 ####################################################################################################################
-
+    Owner.....: Mike W. Lustosa            - mikelustosa@gmail.com   - +55 81 9.9630-2385
+    Developer.: Joathan Theiller           - jtheiller@hotmail.com   -
+                Daniel Oliveira Rodrigues  - Dor_poa@hotmail.com     - +55 51 9.9155-9228
 ####################################################################################################################
   Obs:
      - Código aberto a comunidade Delphi, desde que mantenha os dados dos autores e mantendo sempre o nome do IDEALIZADOR
@@ -34,9 +37,15 @@ uses
   uTInject.AdjustNumber, UBase64,
 
   System.SysUtils, System.Classes, Vcl.Forms, Vcl.Dialogs, System.MaskUtils,
-  System.UiTypes,  Generics.Collections,   System.TypInfo, Data.DB, Vcl.ExtCtrls,
-   uTInject.Diversos, Vcl.Imaging.jpeg;
+  System.UiTypes,  Generics.Collections, System.TypInfo, Data.DB, Vcl.ExtCtrls,
+  uTInject.Diversos, Vcl.Imaging.jpeg;
 
+
+  {$IF DECLARED(FireMonkeyVersion)}
+    {$DEFINE HAS_FMX}
+  {$ELSE}
+    {$DEFINE HAS_VCL}
+  {$IFEND}
 
 type
   {Events}
@@ -46,6 +55,7 @@ type
   TOnGetCheckIsValidNumber  = Procedure(Sender : TObject; Number: String;  IsValid: Boolean) of object;
   TOnGetProfilePicThumb     = Procedure(Sender : TObject; Base64: String) of object;
   TGetUnReadMessages        = procedure(Const Chats: TChatList) of object;
+  TGetUnReadMessagesFromMe  = procedure(Const Chats: TChatList) of object;
   TOnGetQrCode              = procedure(Const Sender: Tobject; Const QrCode: TResultQRCodeClass) of object;
   TOnAllContacts            = procedure(Const AllContacts: TRetornoAllContacts) of object;
   TOnAllGroups              = procedure(Const AllGroups: TRetornoAllGroups) of object;
@@ -55,6 +65,8 @@ type
   TOnGetInviteGroup         = procedure(Const Invite : String) of object;
   TOnGetMe                  = procedure(Const vMe : TGetMeClass) of object;
   TOnNewCheckNumber         = procedure(Const vCheckNumber : TReturnCheckNumber) of object;
+  TOnGetIncomingCall        = procedure(Const incomingCall: TReturnIncomingCall) of object;
+
 
   TInject = class(TComponent)
   private
@@ -66,17 +78,13 @@ type
     FDestroyTmr             : Ttimer;
     FFormQrCodeType         : TFormQrCodeType;
     FMyNumber               : string;
-
-    //Mike 29/12/2020
     FIsDelivered            : string;
-
     FGetBatteryLevel        : Integer;
     FGetIsConnected         : Boolean;
-
     Fversion                : String;
     Fstatus                 : TStatusType;
     FDestruido              : Boolean;
-    //Typing                  : Boolean;
+
     FLanguageInject         : TLanguageInject;
     FOnDisconnectedBrute    : TNotifyEvent;
     { Private  declarations }
@@ -96,9 +104,11 @@ type
     procedure SetInjectJS(const Value: TInjectJS);
     procedure OnDestroyConsole(Sender : TObject);
 
+
   protected
     { Protected declarations }
     FOnGetUnReadMessages        : TGetUnReadMessages;
+    FOnGetUnReadMessagesFromMe  : TGetUnReadMessagesFromMe;
     FOnGetAllGroupContacts      : TOnAllGroupContacts;
     FOnGetAllContactList        : TOnAllContacts;
     FOnGetAllGroupList          : TOnAllGroups;
@@ -112,10 +122,7 @@ type
     FOnUpdateJS                 : TNotifyEvent;
     FOnGetChatList              : TGetUnReadMessages;
     FOnGetMyNumber              : TNotifyEvent;
-
-    //Mike 29/12/2020
     FOnGetIsDelivered           : TNotifyEvent;
-
     FOnGetStatus                : TNotifyEvent;
     FOnConnected                : TNotifyEvent;
     FOnDisconnected             : TNotifyEvent;
@@ -126,13 +133,14 @@ type
     FOnGetInviteGroup           : TOnGetInviteGroup;
     FOnGetMe                    : TOnGetMe;
     FOnNewCheckNumber           : TOnNewCheckNumber;
-
+    FOnGetIncomingCall          : TOnGetIncomingCall;
 
     procedure Int_OnNotificationCenter(PTypeHeader: TTypeHeader; PValue: String; Const PReturnClass : TObject= nil);
 
     procedure Loaded; override;
-    Function  TestConnect:Boolean;
+
   public
+
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
     Procedure   ShutDown(PWarning:Boolean = True);
@@ -141,13 +149,17 @@ type
     //Olhar em uTInject.Console funcao ConfigureNetWork
     //Function    ConfigureNetwork: Boolean;
     procedure ReadMessages(vID: string);
-
+    function  TestConnect:  Boolean;
     procedure Send(PNumberPhone, PMessage: string; PEtapa: string = '');
-    procedure SendContact(PNumberPhone, PNumber: string; PNameContact: string = '');
+    procedure SendButtons(phoneNumber: string; titleText: string; buttons: string; footerText: string; etapa: string = '');
+    procedure SendButtonList(phoneNumber: string; titleText1: string; titleText2: string; titleButton: string; options: string; etapa: string = '');
+    procedure sendPool(PGroupID, PTitle, PSurvey: string);
+    procedure deleteConversation(PNumberPhone: string);
+    procedure SendContact(PPhoneDestiny, PPhoneContact: string; PNameContact: string = '');
     procedure SendFile(PNumberPhone: String; Const PFileName: String; PMessage: string = '');
     procedure SendBase64(Const vBase64: String; vNum: String;  Const vFileName, vMess: string);     deprecated; //Versao 1.0.2.0 disponivel ate Versao 1.0.6.0
     procedure SendLinkPreview(PNumberPhone, PVideoLink, PMessage: string);
-    procedure SendLocation(PNumberPhone, PLat, PLng, PMessage: string);
+    procedure SendLocation(PNumberPhone, PLat, PLng, PName, PAddress: string);
     procedure Logtout();
     procedure GetBatteryStatus;
     procedure CheckIsValidNumber(PNumberPhone: string);
@@ -161,7 +173,7 @@ type
     procedure GroupDemoteParticipant(PIDGroup, PNumber: string);
     procedure GroupLeave(PIDGroup: string);
     procedure GroupDelete(PIDGroup: string);
-
+    procedure ConsoleClear();
     procedure GroupJoinViaLink(PLinkGroup: string);
     procedure GroupRemoveInviteLink(PIDGroup: string);
     procedure SetProfileName(vName : String);
@@ -211,6 +223,7 @@ type
     property OnGetQrCode                 : TOnGetQrCode               read FOnGetQrCode                    write FOnGetQrCode;
     property OnGetChatList               : TGetUnReadMessages         read FOnGetChatList                  write FOnGetChatList;
     property OnGetUnReadMessages         : TGetUnReadMessages         read FOnGetUnReadMessages            write FOnGetUnReadMessages;
+    property OnGetUnReadMessagesFromMe   : TGetUnReadMessagesFromMe   read FOnGetUnReadMessagesFromMe      write FOnGetUnReadMessagesFromMe;
     property OnGetAllGroupContacts       : TOnAllGroupContacts        read FOnGetAllGroupContacts          write FOnGetAllGroupContacts;
     property OnGetStatus                 : TNotifyEvent               read FOnGetStatus                    write FOnGetStatus;
     property OnGetBatteryLevel           : TNotifyEvent               read FOnGetBatteryLevel              write FOnGetBatteryLevel;
@@ -233,8 +246,8 @@ type
     property OnGetInviteGroup            : TOnGetInviteGroup          read FOnGetInviteGroup               write FOnGetInviteGroup;
     property OnGetMe                     : TOnGetMe                   read FOnGetMe                        write FOnGetMe;
     property OnNewGetNumber              : TOnNewCheckNumber          read FOnNewCheckNumber               write FOnNewCheckNumber;
+    property OnGetIncomingCall           : TOnGetIncomingCall         read FOnGetIncomingCall              write FOnGetIncomingCall;
   end;
-
 
 procedure Register;
 
@@ -242,7 +255,7 @@ procedure Register;
 implementation
 
 uses
-  uCEFTypes,   uTInject.ConfigCEF, Winapi.Windows, Winapi.Messages,
+  uCEFTypes, uTInject.ConfigCEF, Winapi.Windows, Winapi.Messages,
   uCEFConstants, Datasnap.DBClient, Vcl.WinXCtrls, Vcl.Controls, Vcl.StdCtrls,
   uTInject.FrmQRCode, System.NetEncoding;
 
@@ -336,10 +349,10 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 
-//    if Assigned(FrmConsole) then
-//     FrmConsole.CheckIsValidNumber(PNumberPhone);
 end;
 
 procedure TInject.NewCheckIsValidNumber(PNumberPhone: string);
@@ -369,12 +382,18 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 
-//    if Assigned(FrmConsole) then
-//     FrmConsole.CheckIsValidNumber(PNumberPhone);
 end;
 
+
+procedure TInject.ConsoleClear;
+begin
+  if Assigned(FrmConsole) then
+    FrmConsole.ConsoleClear;
+end;
 
 function TInject.ConsolePronto: Boolean;
 begin
@@ -388,8 +407,8 @@ begin
 
     if not Assigned(FrmConsole) Then
     Begin
-      InjectJS.UpdateNow;
-      if InjectJS.Ready then
+      InjectJS.UpdateNow();
+      if InjectJS.Ready then //Read? Get random key....
       Begin
         FDestruido                      := False;
         FrmConsole                      := TFrmConsole.Create(nil);
@@ -408,10 +427,11 @@ end;
 
 constructor TInject.Create(AOwner: TComponent);
 begin
+  
   inherited;
   FDestroyTmr                         := Ttimer.Create(nil);
   FDestroyTmr.Enabled                 := False;
-  FDestroyTmr.Interval                := 1200;     //Tempo exigido pelo CEF
+  FDestroyTmr.Interval                := 4000;     //Tempo exigido pelo CEF
   FDestroyTmr.OnTimer                 := OnDestroyConsole;
 
   FTranslatorInject                   := TTranslatorInject.create;
@@ -477,17 +497,37 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
+end;
+
+procedure TInject.deleteConversation(PNumberPhone: string);
+var
+  lThread : TThread;
+begin
+  if Application.Terminated Then
+     Exit;
+  if not Assigned(FrmConsole) then
+     Exit;
+
+  if Assigned(FrmConsole) then
+  begin
+    FrmConsole.ReadMessagesAndDelete(PNumberPhone);//Deleta a conversa
+  end;
+
 end;
 
 destructor TInject.Destroy;
 begin
+
   FormQrCodeStop;
   FreeAndNil(FDestroyTmr);
   FreeAndNil(FTranslatorInject);
   FreeAndNil(FInjectConfig);
   FreeAndNil(FAdjustNumber);
   FreeAndNil(FInjectJS);
+
   inherited;
 end;
 
@@ -549,6 +589,8 @@ begin
           end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -581,6 +623,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -611,6 +655,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -643,6 +689,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -673,6 +721,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -703,6 +753,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -735,6 +787,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -767,6 +821,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -868,6 +924,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -890,9 +948,6 @@ begin
 
   FrmConsole.CleanChat(PNumber);
 end;
-
-
-
 
 procedure TInject.Int_OnErroInterno(Sender : TObject; Const PError: String; Const PInfoAdc:String);
 begin
@@ -948,6 +1003,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 
 end;
@@ -982,6 +1039,8 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -1031,7 +1090,7 @@ begin
   end;
 
 
-  if (PTypeHeader In [Th_GetAllChats, Th_getUnreadMessages]) then
+  if (PTypeHeader In [Th_GetAllChats, Th_getUnreadMessages, Th_getUnreadMessagesFromMe]) then
   Begin
     if not Assigned(PReturnClass) then
       raise Exception.Create(MSG_ExceptMisc + ' in Int_OnNotificationCenter' );
@@ -1047,15 +1106,17 @@ begin
       if Assigned(OnGetUnReadMessages) then
          OnGetUnReadMessages(TChatList(PReturnClass));
 
-//      if Assigned(OnIsDelivered) then
-//         OnIsDelivered(TChatList(PReturnClass));
+    end;
+
+    If PTypeHeader = Th_getUnreadMessagesFromMe Then
+    Begin
+      if Assigned(OnGetUnReadMessagesFromMe) then
+         OnGetUnReadMessagesFromMe(TChatList(PReturnClass));
 
     end;
 
-
     Exit;
   end;
-
 
 
   if PTypeHeader in [Th_ConnectedDown] then
@@ -1080,11 +1141,12 @@ begin
   if PTypeHeader = Th_Initialized then
   Begin
     FStatus := Inject_Initialized;
+
     if Assigned(FOnAfterInitialize) then
        FOnAfterInitialize(Self);
 
     if Assigned(fOnGetStatus ) then
-       fOnGetStatus(Self);
+      fOnGetStatus(Self);
   end;
 
 
@@ -1095,7 +1157,6 @@ begin
 
     FrmConsole.GetMyNumber;
     SleepNoFreeze(40);
-
 
     FrmConsole.GetAllContacts(true);
     if Assigned(fOnGetStatus ) then
@@ -1127,7 +1188,9 @@ begin
   Begin
     FMyNumber := FAdjustNumber.FormatOut(PValue);
     if Assigned(FOnGetMyNumber) then
+    begin
        FOnGetMyNumber(Self);
+    end;
   end;
 
 
@@ -1158,12 +1221,11 @@ begin
        FOnNewCheckNumber(TReturnCheckNumber(PReturnClass));
   end;
 
-//  if PTypeHeader = Th_GetAllGroupContacts then
-//  Begin
-//    FMyNumber := FAdjustNumber.FormatOut(PValue);
-//    if Assigned(FOnGetMyNumber) then
-//       FOnGetMyNumber(Self);
-//  end;
+  if PTypeHeader = Th_GetIncomingCall  then
+  begin
+    if Assigned(FOnGetIncomingCall) then
+       FOnGetIncomingCall(TReturnIncomingCall(PReturnClass));
+  end;
 
 
   if PTypeHeader = Th_GetBatteryLevel then
@@ -1202,11 +1264,16 @@ begin
   if PTypeHeader in [Th_Connected, Th_Disconnected]  then
   Begin
     if PTypeHeader = Th_Connected then
-       SetAuth(True) else
-       SetAuth(False);
-    LimparQrCodeInterno;
-    Exit;
+    begin
+       SetAuth(True);
+    end else
+      begin
+        SetAuth(False);
+        LimparQrCodeInterno;
+        Exit;
+      end;
   end;
+
 
   if PTypeHeader in [Th_Abort]  then
   Begin
@@ -1293,12 +1360,12 @@ begin
         end);
 
       end);
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
-
 procedure TInject.SendFile(PNumberPhone: string;
-  const PFileName: String; PMessage: string);
+  const PFileName: String; PMessage: string = '');
 var
   lThread     : TThread;
   LStream     : TMemoryStream;
@@ -1327,6 +1394,7 @@ begin
 
   LStream     := TMemoryStream.Create;
   LBase64File := TBase64Encoding.Create;
+
   try
     try
       LStream.LoadFromFile(PFileName);
@@ -1358,9 +1426,12 @@ begin
           begin
             FrmConsole.ReadMessages(PNumberPhone); //Marca como lida a mensagem
             FrmConsole.sendBase64(LBase64, PNumberPhone, PFileName, PMessage);
+            //FrmConsole.sendBase64(PFileName, PNumberPhone, PFileName, PMessage);
+
           end;
         end);
       end);
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 end;
 
@@ -1407,11 +1478,13 @@ begin
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 
 end;
 
-procedure TInject.SendLocation(PNumberPhone, PLat, PLng, PMessage: string);
+procedure TInject.SendLocation(PNumberPhone, PLat, PLng, PName, PAddress: string);
 var
   lThread : TThread;
 begin
@@ -1427,11 +1500,11 @@ begin
     Exit;
   end;
 
-  if Trim(PMessage) = '' then
-  begin
-    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, PNumberPhone);
-    Exit;
-  end;
+//  if Trim(PMessage) = '' then
+//  begin
+//    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, PNumberPhone);
+//    Exit;
+//  end;
 
   if (Trim(PLat) = '') or (Trim(PLng) = '') then
   begin
@@ -1449,11 +1522,56 @@ begin
           if Assigned(FrmConsole) then
           begin
             FrmConsole.ReadMessages(PNumberPhone); //Marca como lida a mensagem
-            FrmConsole.sendLocation(PNumberPhone, PLat, PLng, PMessage);
+            FrmConsole.sendLocation(PNumberPhone, PLat, PLng, PName, PAddress);
           end;
         end);
 
       end);
+
+  lThread.FreeOnTerminate := true;
+  lThread.Start;
+
+end;
+
+procedure TInject.sendPool(PGroupID, PTitle, PSurvey: string);
+var
+  lThread : TThread;
+begin
+  If Application.Terminated Then
+     Exit;
+  if not Assigned(FrmConsole) then
+     Exit;
+
+  PGroupID := AjustNumber.FormatIn(PGroupID);
+
+  if pos('@', PGroupID) = 0 then
+  Begin
+    Int_OnErroInterno(Self, MSG_ExceptPhoneNumberError, PGroupID);
+    Exit;
+  end;
+
+  if Trim(PTitle) = '' then
+  begin
+    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, PTitle);
+    Exit;
+  end;
+
+  lThread := TThread.CreateAnonymousThread(procedure
+      begin
+        if Config.AutoDelay > 0 then
+           sleep(random(Config.AutoDelay));
+
+        TThread.Synchronize(nil, procedure
+        begin
+          if Assigned(FrmConsole) then
+          begin
+            FrmConsole.sendPool(PGroupID, PTitle, PSurvey);
+          end;
+        end);
+
+      end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
 
 end;
@@ -1495,11 +1613,15 @@ begin
           end;
         end);
       end);
+
+  lThread.FreeOnTerminate := true;
   lThread.Start;
+
 end;
 
 
-procedure TInject.SendContact(PNumberPhone, PNumber: string; PNameContact: string = '');
+procedure TInject.SendButtons(phoneNumber, titleText, buttons,
+  footerText: string; etapa: string = '');
 var
   lThread : TThread;
 begin
@@ -1508,17 +1630,16 @@ begin
   if not Assigned(FrmConsole) then
      Exit;
 
-  PNumberPhone := AjustNumber.FormatIn(PNumberPhone);
-
-  if (pos('@', PNumberPhone) = 0) then
+  phoneNumber := AjustNumber.FormatIn(phoneNumber);
+  if pos('@', phoneNumber) = 0 then
   Begin
-    Int_OnErroInterno(Self, MSG_ExceptPhoneNumberError, PNumberPhone);
+    Int_OnErroInterno(Self, MSG_ExceptPhoneNumberError, phoneNumber);
     Exit;
   end;
 
-  if Trim(PNumber) = '' then
+  if Trim(titleText) = '' then
   begin
-    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, PNumberPhone);
+    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, phoneNumber);
     Exit;
   end;
 
@@ -1531,12 +1652,109 @@ begin
         begin
           if Assigned(FrmConsole) then
           begin
-            FrmConsole.SendContact(PNumberPhone, PNumber, PNameContact);
+            FrmConsole.ReadMessages(phoneNumber); //Marca como lida a mensagem
+            FrmConsole.SendButtons(phoneNumber, titleText, buttons, footerText);
+            if etapa <> '' then
+            begin
+              FrmConsole.ReadMessagesAndDelete(phoneNumber);//Deleta a conversa
+            end;
           end;
         end);
 
       end);
+  lThread.FreeOnTerminate := true;
   lThread.Start;
+
+end;
+
+procedure TInject.SendButtonList(phoneNumber: string; titleText1: string; titleText2: string; titleButton: string; options: string;
+  etapa: string = '');
+var
+  lThread : TThread;
+begin
+  If Application.Terminated Then
+     Exit;
+  if not Assigned(FrmConsole) then
+     Exit;
+
+  phoneNumber := AjustNumber.FormatIn(phoneNumber);
+  if pos('@', phoneNumber) = 0 then
+  Begin
+    Int_OnErroInterno(Self, MSG_ExceptPhoneNumberError, phoneNumber);
+    Exit;
+  end;
+
+  if (Trim(titleText1) = '') or  (Trim(titleText2) = '') or (Trim(titleButton) = '') then
+  begin
+    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, phoneNumber);
+    Exit;
+  end;
+
+  lThread := TThread.CreateAnonymousThread(procedure
+      begin
+        if Config.AutoDelay > 0 then
+           sleep(random(Config.AutoDelay));
+
+        TThread.Synchronize(nil, procedure
+        begin
+          if Assigned(FrmConsole) then
+          begin
+            FrmConsole.ReadMessages(phoneNumber); //Marca como lida a mensagem
+            FrmConsole.SendButtonList(phoneNumber, titleText1, titleText2, titleButton, options);
+            if etapa <> '' then
+            begin
+              FrmConsole.ReadMessagesAndDelete(phoneNumber);//Deleta a conversa
+            end;
+          end;
+        end);
+
+      end);
+  lThread.FreeOnTerminate := true;
+  lThread.Start;
+
+end;
+
+procedure TInject.SendContact(PPhoneDestiny, PPhoneContact: string; PNameContact: string = '');
+var
+  lThread : TThread;
+begin
+  If Application.Terminated Then
+     Exit;
+  if not Assigned(FrmConsole) then
+     Exit;
+
+  PPhoneDestiny := AjustNumber.FormatIn(PPhoneDestiny);
+
+  if (pos('@', PPhoneDestiny) = 0) then
+  Begin
+    Int_OnErroInterno(Self, MSG_ExceptPhoneNumberError, PPhoneDestiny);
+    Exit;
+  end;
+
+  if Trim(PPhoneContact) = '' then
+  begin
+    Int_OnErroInterno(Self, MSG_WarningNothingtoSend, PPhoneContact);
+    Exit;
+  end;
+
+  lThread := TThread.CreateAnonymousThread(procedure
+      begin
+        if Config.AutoDelay > 0 then
+           sleep(random(Config.AutoDelay));
+
+        TThread.Synchronize(nil, procedure
+        begin
+          if Assigned(FrmConsole) then
+          begin
+            FrmConsole.SendContact(PPhoneDestiny, PPhoneContact, PNameContact);
+          end;
+        end);
+
+      end);
+
+  lThread.FreeOnTerminate := true;
+  lThread.Start;
+
 end;
 
 procedure TInject.SetAuth(const Value: boolean);
@@ -1642,7 +1860,7 @@ begin
       Begin
          LForced := true;
          FrmConsole.CEFSentinel1.Start;
-         SleepNoFreeze(100);
+         SleepNoFreeze(1000);
          FrmConsole.Chromium1.ShutdownDragAndDrop;
          PostMessage(FrmConsole.Handle, CEF_DESTROY, 0, 0);
       end
@@ -1737,6 +1955,7 @@ begin
        Abort;
   end;
 
+
   LForm := Tform.Create(Nil);
   try
     LForm.BorderStyle                 := bsDialog;
@@ -1773,14 +1992,27 @@ begin
     LAbel1.Caption                    := Text_FrmClose_Label;
     LAbel1.AlignWithMargins           := true;
     LForm.Visible                     := True;
-    Application.MainForm.Visible      := False;
+
+//    Causando problema no FMX
+//    {$IFDEF HAS_VCL}
+//    Application.MainForm.Visible      := False;
+//    {$ENDIF}
+
     LForm.Show;
 
     Disconnect;
     LForm.close;
   finally
-    FreeAndNil(LForm);
-//    FreeAndNil(GlobalCEFApp);
+    if assigned(LForm) then
+      FreeAndNil(LForm);
+    sleepNoFreeze(5000);
+    if assigned(GlobalCEFApp) then
+      FreeAndNil(GlobalCEFApp);
+    sleepNoFreeze(5000);
+    try
+      if CallTerminateProcs then PostQuitMessage(0);
+    except
+    end
   end
 end;
 
@@ -1794,34 +2026,35 @@ end;
 
 
 procedure TInject.FormQrCodeStart(PViewForm: Boolean);
-Var
+var
    LState: Boolean;
 begin
-  If Application.Terminated Then
+  if Application.Terminated Then
      Exit;
   LState := Assigned(FrmConsole);
 
   if Status in [Inject_Destroying, Server_Disconnecting] then
-  Begin
+  begin
     Application.MessageBox(PWideChar(MSG_WarningQrCodeStart1), PWideChar(Application.Title), MB_ICONERROR + mb_ok);
     Exit;
   end;
 
   if Status in [Server_Disconnected, Inject_Destroy] then
-  Begin
+  begin
     if not ConsolePronto then
-    Begin
+    begin
       Application.MessageBox(PWideChar(MSG_ConfigCEF_ExceptConsoleNaoPronto), PWideChar(Application.Title), MB_ICONERROR + mb_ok);
       Exit;
     end;
     //Reseta o FORMULARIO
     if LState Then
        FormQrCodeReloader;
-  End else
-  Begin
-    //Ja esta logado!!! chamou apenas por chamar!! ou porque nao esta visivel..
-    PViewForm :=true
-  end;
+  end else
+    begin
+      //Ja esta logado. chamou apenas por chamar ou porque nao esta visivel..
+      PViewForm :=true
+    end;
+
   //Faz uma parada forçada para que tudo seja concluido
   SleepNoFreeze(30);
   FrmConsole.StartQrCode(FormQrCodeType, PViewForm);
@@ -1856,6 +2089,3 @@ end;
 
 
 end.
-
-
-

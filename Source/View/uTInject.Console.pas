@@ -97,6 +97,8 @@ type
       const params: ICefContextMenuParams; const model: ICefMenuModel);
     procedure Button2Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
+    procedure Lbl_CaptionClick(Sender: TObject);
+    procedure Img_LogoInjectClick(Sender: TObject);
   protected
     // You have to handle this two messages to call NotifyMoveOrResizeStarted or some page elements will be misaligned.
     procedure WMMove(var aMessage : TWMMove); message WM_MOVE;
@@ -153,7 +155,7 @@ type
     Procedure Form_Start;
     Procedure Form_Normal;
 
-     public
+    public
     { Public declarations }
     Function  ConfigureNetWork:Boolean;
     Procedure SetZoom(Pvalue: Integer);
@@ -173,11 +175,14 @@ type
     Procedure Connect;
     Procedure DisConnect;
     procedure Send(vNum, vText:string);
+    procedure SendButtons(phoneNumber, titleText, buttons, footerText: string; etapa: string = '');
+    procedure SendButtonList(phoneNumber, titleText1, titleText2, titleButton, options: string; etapa: string = '');
+    procedure SendPool(vGroupID, vTitle, vSurvey: string);
     procedure CheckDelivered;
     procedure SendContact(vNumDest, vNum:string; vNameContact: string = '');
-    procedure SendBase64(vBase64, vNum, vFileName, vText:string);
+    procedure SendBase64(vBase64: string; vNum: string; vFileName: string; vText: string = '');
     procedure SendLinkPreview(vNum, vLinkPreview, vText: string);
-    procedure SendLocation(vNum, vLat, vLng, vText: string);
+    procedure SendLocation(vNum, vLat, vLng, vName, vAddress: string);
     procedure Logout();
     procedure ReloaderWeb;
     procedure StopWebBrowser;
@@ -190,7 +195,7 @@ type
     procedure GroupLeave(vIDGroup: string);
     procedure GroupDelete(vIDGroup: string);
     procedure GroupJoinViaLink(vLinkGroup: string);
-
+    procedure consoleClear();
     procedure getGroupInviteLink(vIDGroup: string);
     procedure revokeGroupInviteLink(vIDGroup: string);
     procedure setNewName(newName: string);
@@ -441,7 +446,7 @@ begin
     If Assigned(TInject(FOwner).OnGetQrCode) then
        TInject(FOwner).OnGetQrCode(self, LResultQrCode);
   Except
-    FrmQRCode.SetView(FrmQRCode.Timg_Animacao);
+    //FrmQRCode.SetView(FrmQRCode.Timg_Animacao);
   end;
 end;
 
@@ -771,11 +776,12 @@ begin
   Chromium1.OnTitleChange           := nil;
 end;
 
-procedure TFrmConsole.SendBase64(vBase64, vNum, vFileName, vText: string);
+procedure TFrmConsole.SendBase64(vBase64: string; vNum: string; vFileName: string; vText: string = '');
 var
   Ljs, LLine: string;
   LBase64: TStringList;
   i: integer;
+  LMime: string;
 begin
   if not FConectado then
     raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
@@ -783,21 +789,66 @@ begin
   vText           := CaractersWeb(vText);
   vFileName       := ExtractFileName(vFileName); //AjustNameFile(vFileName) Alterado em 20/02/2020 by Lucas
   LBase64         := TStringList.Create;
-  TRY
+  try
+    //vBase64 := FileToBase64_(trim(vBase64));
     LBase64.Text := vBase64;
+
     for i := 0 to LBase64.Count -1  do
        LLine := LLine + LBase64[i];
     vBase64 := LLine;
 
-    LJS := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendBase64;
+
+    //LJS := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendBase64;
+    LJS := FrmConsole_JS_VAR_SendBase64;
     FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',       Trim(vNum));
     FrmConsole_JS_AlterVar(LJS, '#MSG_NOMEARQUIVO#', Trim(vFileName));
     FrmConsole_JS_AlterVar(LJS, '#MSG_CORPO#',       Trim(vText));
     FrmConsole_JS_AlterVar(LJS, '#MSG_BASE64#',      Trim(vBase64));
+    //FrmConsole_JS_AlterVar(LJS, '#MSG_BASE64#',      vBase64);
+
     ExecuteJS(LJS, True);
-  FINALLY
+  finally
     freeAndNil(LBase64);
-  END;
+  end;
+end;
+
+procedure TFrmConsole.SendButtons(phoneNumber, titleText, buttons, footerText,
+  etapa: string);
+var
+  Ljs: string;
+begin
+  if not FConectado then
+    raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
+
+  titleText := CaractersWeb(titleText);
+  //LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendButtons;
+  LJS   := FrmConsole_JS_VAR_SendButtons;
+  FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',       Trim(phoneNumber));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_TITLE#',       Trim(titleText));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_BUTTONS#',     Trim(buttons));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_FOOTER#',      Trim(footerText));
+  ExecuteJS(LJS, true);
+end;
+
+procedure TFrmConsole.SendButtonList(phoneNumber, titleText1, titleText2, titleButton, options: string; etapa: string = '');
+var
+  Ljs: string;
+begin
+  if not FConectado then
+    raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
+
+  titleText1  := CaractersWeb(titleText1);
+  titleText2  := CaractersWeb(titleText2);
+  titleButton := CaractersWeb(titleButton);
+
+  LJS   := FrmConsole_JS_VAR_SendButtonList;
+
+  FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',      Trim(phoneNumber));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_TITLE1#',     Trim(titleText1));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_TITLE2#',     Trim(titleText2));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_TITLEBUTTON#',Trim(titleButton));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_OPTIONS#',    Trim(options));
+  ExecuteJS(LJS, true);
 end;
 
 procedure TFrmConsole.SendContact(vNumDest, vNum: string; vNameContact: string = '');
@@ -807,11 +858,9 @@ begin
   if not FConectado then
     raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
 
-  //vText := CaractersWeb(vText);
-  LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendContact;
+  LJS   := FrmConsole_JS_VAR_SendContact;
   FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE_DEST#',       Trim(vNumDest));
   FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',            Trim(vNum));
-  FrmConsole_JS_AlterVar(LJS, '#MSG_NAMECONTACT#',      Trim(vNameContact));
   ExecuteJS(LJS, true);
 end;
 
@@ -823,26 +872,30 @@ begin
     raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
 
   vText := CaractersWeb(vText);
-  LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendLinkPreview;
+  //LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendLinkPreview;
+  LJS   := FrmConsole_JS_VAR_SendLinkPreview;
   FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',      Trim(vNum));
   FrmConsole_JS_AlterVar(LJS, '#MSG_LINK#',       Trim(vLinkPreview));
   FrmConsole_JS_AlterVar(LJS, '#MSG_CORPO#',      Trim(vText));
   ExecuteJS(LJS, true);
 end;
 
-procedure TFrmConsole.SendLocation(vNum, vLat, vLng, vText: string);
+procedure TFrmConsole.SendLocation(vNum, vLat, vLng, vName, vAddress: string);
 var
   Ljs: string;
 begin
   if not FConectado then
     raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
 
-  vText := CaractersWeb(vText);
-  LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendLocation;
+  vName     := CaractersWeb(vName);
+  vAddress  := CaractersWeb(vAddress);
+
+  LJS   := FrmConsole_JS_VAR_SendLocation;
   FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',     Trim(vNum));
   FrmConsole_JS_AlterVar(LJS, '#MSG_LAT#',       Trim(vLat));
   FrmConsole_JS_AlterVar(LJS, '#MSG_LNG#',       Trim(vLng));
-  FrmConsole_JS_AlterVar(LJS, '#MSG_CORPO#',     Trim(vText));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_NAME#',      Trim(vName));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_ADDRESS#',   Trim(vAddress));
   ExecuteJS(LJS, true);
 end;
 
@@ -881,6 +934,20 @@ begin
   Application.ProcessMessages;
 end;
 
+procedure TFrmConsole.SendPool(vGroupID, vTitle, vSurvey: string);
+var
+  Ljs: string;
+begin
+  vTitle := CaractersWeb(vTitle);
+
+  LJS   := FrmConsole_JS_VAR_SendSurvey;
+
+  FrmConsole_JS_AlterVar(LJS, '#MSG_GROUPID#',     Trim(vGroupID));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_TITLE#',       Trim(vTitle));
+  FrmConsole_JS_AlterVar(LJS, '#MSG_SURVEY#',      Trim(vSurvey));
+  ExecuteJS(LJS, true);
+end;
+
 procedure TFrmConsole.Send(vNum, vText: string);
 var
   Ljs: string;
@@ -889,7 +956,8 @@ begin
     raise Exception.Create(MSG_ConfigCEF_ExceptConnetServ);
 
   vText := CaractersWeb(vText);
-  LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendMsg;
+  //LJS   := FrmConsole_JS_VAR_SendTyping + FrmConsole_JS_VAR_SendMsg;
+  LJS   := FrmConsole_JS_VAR_SendMsg;
   FrmConsole_JS_AlterVar(LJS, '#MSG_PHONE#',       Trim(vNum));
   FrmConsole_JS_AlterVar(LJS, '#MSG_CORPO#',       Trim(vText));
   ExecuteJS(LJS, true);
@@ -1084,6 +1152,16 @@ begin
                             FgettingChats := False;
                           end;
 
+    Th_getUnreadMessagesFromMe: begin
+                            LOutClass := TChatList.Create(LResultStr);
+                            try
+                              SendNotificationCenterDirect(PResponse.TypeHeader, LOutClass);
+                            finally
+                              FreeAndNil(LOutClass);
+                            end;
+                            FgettingChats := False;
+                          end;
+
     Th_GetAllGroupContacts: begin
                               LOutClass := TClassAllGroupContacts.Create(LResultStr);
                               try
@@ -1217,6 +1295,17 @@ begin
                               finally
                                 FreeAndNil(LOutClass);
                               end;
+                            end;
+
+    Th_GetIncomingCall        : begin
+                                LOutClass := TReturnIncomingCall.Create(LResultStr);
+                              try
+                                SendNotificationCenterDirect(PResponse.TypeHeader, LOutClass);
+                              finally
+                                FreeAndNil(LOutClass);
+                              end;
+
+
                             end;
    end;
 end;
@@ -1420,6 +1509,11 @@ begin
   end;
 end;
 
+procedure TFrmConsole.consoleClear;
+begin
+  ExecuteJS(Frmconsole_JS_consoleClear, true);
+end;
+
 procedure TFrmConsole.CreateGroup(vGroupName, PParticipantNumber: string);
 var
   Ljs: string;
@@ -1566,6 +1660,11 @@ begin
  Chromium1.ShowDevTools(TempPoint, nil);
 end;
 
+procedure TFrmConsole.Img_LogoInjectClick(Sender: TObject);
+begin
+  Chromium1.Browser.MainFrame.ExecuteJavaScript('console.clear();', '', 0);
+end;
+
 procedure TFrmConsole.Int_FrmQRCodeClose(Sender: TObject);
 begin
   if FFormType = Ft_Desktop then
@@ -1590,6 +1689,15 @@ begin
   ExecuteJS(FrmConsole_JS_IsLoggedIn, false);
 end;
 
+
+procedure TFrmConsole.Lbl_CaptionClick(Sender: TObject);
+var
+  tp: Tpoint;
+begin
+  tp.X := FrmConsole.Width;
+  tp.Y := FrmConsole.Height;
+  FrmConsole.Chromium1.ShowDevTools(tp, nil);
+end;
 
 procedure TFrmConsole.lbl_VersaoMouseEnter(Sender: TObject);
 const

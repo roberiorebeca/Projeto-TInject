@@ -2,24 +2,22 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Demo TInject'
-  ClientHeight = 471
-  ClientWidth = 1018
+  ClientHeight = 565
+  ClientWidth = 1102
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Lbl_Avisos: TLabel
     Left = 0
-    Top = 439
-    Width = 1018
+    Top = 533
+    Width = 1102
     Height = 13
     Align = alBottom
     Caption = ' '
@@ -29,21 +27,19 @@ object frmPrincipal: TfrmPrincipal
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 1012
-    Height = 433
+    Width = 1096
+    Height = 527
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 968
     object TabSheet1: TTabSheet
       Caption = 'Autentica'#231#227'o / Authentication'
-      ExplicitWidth = 960
       object Pnl_Config: TPanel
         AlignWithMargins = True
-        Left = 333
+        Left = 375
         Top = 3
-        Width = 668
-        Height = 399
+        Width = 710
+        Height = 493
         Align = alClient
         BorderStyle = bsSingle
         Caption = 'Pnl_Config'
@@ -51,25 +47,29 @@ object frmPrincipal: TfrmPrincipal
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitWidth = 624
         DesignSize = (
-          666
-          397)
+          708
+          491)
         object Image1: TImage
-          Left = 495
-          Top = 141
+          Left = 19
+          Top = 232
           Width = 162
           Height = 169
           Anchors = [akTop, akRight]
           Proportional = True
-          ExplicitLeft = 451
+        end
+        object Label11: TLabel
+          Left = 19
+          Top = 213
+          Width = 35
+          Height = 13
+          Caption = 'Qrcode'
         end
         object SpeedButton2: TSpeedButton
-          Left = 1
-          Top = 338
-          Width = 664
+          Left = 336
+          Top = 208
+          Width = 339
           Height = 29
-          Align = alBottom
           Caption = 'Cursos do componente / Component video lessons'
           Flat = True
           Glyph.Data = {
@@ -130,17 +130,15 @@ object frmPrincipal: TfrmPrincipal
             FFFFFFFFFFFFFFFDFDFDF8F8F8F2F2F2F3F3F3F6F6F6F5F6F5F4F4F4F4F4F4F7
             F7F7FDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           OnClick = SpeedButton2Click
-          ExplicitLeft = 19
-          ExplicitTop = 336
-          ExplicitWidth = 286
         end
         object SpeedButton4: TSpeedButton
-          Left = 1
-          Top = 367
-          Width = 664
+          Left = 336
+          Top = 243
+          Width = 339
           Height = 29
-          Align = alBottom
-          Caption = 'Youtube channel'
+          Caption = 
+            '                       Youtube channel                          ' +
+            '    '
           Flat = True
           Glyph.Data = {
             76080000424D760800000000000036000000280000001F000000160000000100
@@ -212,22 +210,231 @@ object frmPrincipal: TfrmPrincipal
             F6BBB8F0B5B8F0B6B7F1BFBCF2DEDCF8F9FAFDFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           OnClick = SpeedButton4Click
-          ExplicitLeft = -1
-          ExplicitTop = 373
-          ExplicitWidth = 620
         end
-        object Label11: TLabel
-          Left = 451
-          Top = 125
-          Width = 35
-          Height = 13
-          Caption = 'Qrcode'
+        object SpeedButton8: TSpeedButton
+          Left = 337
+          Top = 278
+          Width = 339
+          Height = 29
+          Caption = '                  Youtube TInject Corporate                   '
+          Flat = True
+          Glyph.Data = {
+            76080000424D760800000000000036000000280000001F000000160000000100
+            1800000000004008000074120000741200000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7FDD6D3
+            F6BBB8F0B5B8F0B6B7F1BFBCF2DEDCF8F9FAFDFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDEF88582E73029D70A00
+            D00000CB0000CB0000CB0000CC0F03D1413AD99E9BEBF2F1FCFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAFAFEF2422D20000CD0F02D1190C
+            D31E10D31F11D41F11D41E10D3170AD20C00D00200CD3C37D9D3D3F5FFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA5A6EC0805CE1003D01E10D41D10D41D10
+            D41D10D41C10D41C10D41D10D41D10D41E11D41B0ED30800CF0806CEE1E1F9FF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFA6A6ED0000CD1608D21E11D41D10D41D10D41D10
+            D41D10D41D10D41D10D41D10D41D10D41D10D41D10D41E11D41705D30607C8EE
+            ECFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFDFDDF72421D30F04D01F11D41709D30F01D10D00D00D00
+            D00D00D00D00D00D00D00D00D00D00D00E00D01002D01A0CD31E11D40E00D140
+            3AD9FBFBFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFF7B78E50000CD1E11D41608D2170FD16057DF7169E36C65
+            E26D65E26D65E26D65E26D65E26D65E27067E24E47DC1309D1190CD31A0CD30A
+            05CEA9A9EEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFF8F7FD251BD41104D01D10D30500CDA5A5EDFDFDFEFFFFFFFFFF
+            FEFFFFFEFFFFFEFFFFFEFFFFFEFFFFFEFFFFFFF8F9FD645FDF0D00CF1F10D403
+            00CF6565E0FFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFCDCBF50000CA1D0FD41808D21311D2FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDCF71211CF1B0ED416
+            08D21B0DD2D5D3F6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFA5A4EC0000CA2113D41707D21113D1FFFFFFFFFFFFFFFFFFFFFF
+            FF9C97E89A99E7F7F6FDFFFFFFFFFFFFFFFFFFFFFFFFE1E0F81112CE1C0DD41C
+            0FD40000CDC6C5F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFF756FE40000CC2011D41707D21113D1FFFFFFFFFFFFFFFFFFFFFF
+            FF8E88E60000C62B29D2C9C9F1FFFFFFFFFFFFFFFFFFDFDEF71012CF1C0DD41C
+            0FD40100CEBEBCF1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFF756FE40000CC2011D41707D21113D1FFFFFFFFFFFFFFFFFFFFFF
+            FF8681E50000C76867DFD6D6F5FFFFFFFFFFFFFFFFFFDFDEF71012CF1C0DD41C
+            0FD40100CEBEBCF1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFA5A4EC0000CA2113D41707D21115D1FFFFFFFFFFFFFFFFFFFFFF
+            FFC5C5EFDDDEF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE4E3F81214CE1C0DD41C
+            0FD40000CDC6C5F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFCDCBF50000CA1D0FD4180AD2100AD1FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCECBF40F0DD01B0ED416
+            08D21B0DD2D5D3F6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFF8F7FD251BD41104D01E11D40400CF6E67E3E6E6FAE1DFF9E1DF
+            F9E1DFF9E1DFF9E1DFF9E1DFF9E1DFF9E2E1F9E0DFF9463BDB0E00D01F11D404
+            00CF6565E0FFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFF7B78E50000CD1E10D41C0ED30C00CF3129D6362DD8362C
+            D8362CD8362CD8362CD8362CD8362CD8382FD8241BD41002D11B0ED41A0CD30A
+            05CEA9A9EEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFDFDDF72420D30F04D01E11D41B0ED31205D11104D11104
+            D11104D11104D11104D11104D11104D11104D11408D21C0FD31E11D40E00D140
+            3AD9FBFBFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFA6A6ED0000CD1608D21E10D41D10D41D10D41D10
+            D41D10D41D10D41D10D41D10D41D10D41D10D41D10D41D10D41705D30607C8EE
+            ECFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA5A6EC0805CE1003D01D10D41D10D41D10
+            D41D10D41C10D41C10D41D10D41D10D41E11D41B0ED30800CF0806CEE0E1F9FF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAFAFEE2322D20000CD0F02D1190C
+            D31E10D31F11D41F11D41E10D3170AD20C00D00100CD3C37D9D3D3F5FFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDEF88582E73029D70A00
+            D00000CB0000CB0000CB0000CC0F03D1413AD99D9BEBF2F1FCFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7FDD6D3
+            F6BBB8F0B5B8F0B6B7F1BFBCF2DEDCF8F9FAFDFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
+          OnClick = SpeedButton8Click
+        end
+        object SpeedButton11: TSpeedButton
+          Left = 336
+          Top = 313
+          Width = 339
+          Height = 29
+          Caption = 
+            '                          Github channel                        ' +
+            '      '
+          Flat = True
+          Glyph.Data = {
+            E6040000424DE604000000000000360000002800000014000000140000000100
+            180000000000B0040000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFDADADA8B8B8BA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFA3A3
+            A38C8C8CDBDBDBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE6
+            E6E66B6B6B000000000000585858FAFAFAFFFFFFFFFFFFFCFCFC616161000000
+            0000006D6D6DE6E6E6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBEBEB3939390000
+            007E7E7E919191BABABAFEFEFEFFFFFFFFFFFFFFFFFF72727200000000000000
+            00003D3D3DEBEBEBFFFFFFFFFFFFFFFFFFECECEC484848000000B2B2B2F9F9F9
+            C7C7C7F7F7F7FFFFFFFFFFFFFFFFFFFFFFFF7676760000000000000000000000
+            00494949ECECECFFFFFFFFFFFF7F7F7F000000646464FFFFFF0000000000004B
+            4B4BEDEDEDFFFFFFFFFFFFEFEFEF464646000000000000000000000000000000
+            7F7F7FFFFFFFEDEDED050505282828C7C7C7191919000000434343979797EDED
+            EDFFFFFFFFFFFFECECEC9898984545450606060000000000000000000B0B0BED
+            EDEDAFAFAF0000000808080000000E0E0EC1C1C1FFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFC0C0C0151515000000000000000000B0B0B06565
+            65000000000000000000C2C2C2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFC3C3C3000000000000000000646464202020000000
+            0000002D2D2DFAFAFAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFAFAFA2D2D2D0000000000002121210000000000000000005A
+            5A5AFCFCFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFBFBFB5B5B5B000000000000000000090909000000000000707070FFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF6F6F6F000000000000090909424242000000000000343434FBFBFBFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFBFB3434
+            340000000000004242428989890000000000000000009E9E9EFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9E9E9E000000000000
+            000000898989D6D6D6000000000000000000797979FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979000000000000000000D6
+            D6D6FAFAFA333333000000000000939393FFFFFFFFFFFFBBBBBBC3C3C3DFDFDF
+            DFDFDFC3C3C3BABABAFDFDFDFFFFFF909090000000000000333333FBFBFBFFFF
+            FFC6C6C60B0B0B0000003A3A3AA6A6A629292900000000000000000000000000
+            00000000002C2C2CAAAAAA3737370000000B0B0BC6C6C6FFFFFFFFFFFFFFFFFF
+            9292920202020000000000000000000000000000000000000000000000000000
+            00000000000000000000020202939393FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF97
+            9797171717000000000000000000000000000000000000000000000000000000
+            000000171717989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD7D7
+            D74F4F4F0808080000000000000000000000000000000000000808084F4F4FD7
+            D7D7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDFD
+            E3E3E3B1B1B1909090636363636363909090B1B1B1E3E3E3FEFEFEFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF}
+          OnClick = SpeedButton11Click
+        end
+        object SpeedButton7: TSpeedButton
+          Left = 336
+          Top = 348
+          Width = 339
+          Height = 29
+          Caption = 
+            '                        Suporte / Suport                        ' +
+            '     '
+          Flat = True
+          Glyph.Data = {
+            96090000424D9609000000000000360000002800000020000000190000000100
+            18000000000060090000C40E0000C40E00000000000000000000F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F6F6F7F7F7F6F7
+            F9F8F9FEF9FFFFFAFFFFFAFFFFF9FFFFF8F9FEF6F7F9F7F7F7F7F6F6F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F6F6F6F7F8FBF9FFFFF8F8
+            F3F2EADAE5CC92E0BB6FE0BB6FE5CC92F2EADAF8F8F3F9FFFFF7F8FBF6F6F6F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F8FAFFFFF8F9F6DDB565CE8C
+            0CC67A00CA8400CC8700CC8700CA8400C67A00CE8C0CDDB566F8F9F6FAFFFFF7
+            F7F8F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F6F7F7F7F6F8FAFFFFE3C58CC67800CA8400CD8A
+            02CE8C06CD8B06CD8B05CD8B05CD8B05CD8C05CD8901CA8400C67800E4C58BFA
+            FFFFF7F6F8F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F6F7F7F7F6F8FCFFFFD8AA4BC98000D7A53CD6A339D5A2
+            37D6A237D5A138D6A339D6A33AD6A339D6A339D6A33AD6A239D7A439C98200D8
+            A94BFCFFFFF7F6F8F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7FAFFFFDEB461C27000F1E5D3FFFFFFFDFFFFFDFF
+            FFFDFFFFFDFFFFFDFFFFFDFFFFFDFFFFFDFFFFFDFFFFFDFFFFFFFFFFF3EAD9C2
+            7000DEB361FAFFFFF7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F6F6FAFEFFE9D4ABC88000CC8800DFBB6FFBFFFFF6F6F6F6F6
+            F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6F6FAFFFFE1BF7CCC
+            8600C88000E9D4ABFAFEFFF7F6F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F6F7F9F9FCFDCE8E10CF8F0BCF8F0DCE8E0FF9FEFFF7F8FAF6F6
+            F6F7F7F7F7F6F6F6F6F6F6F6F7F6F6F6F7F7F7F6F6F6F7F7FAFAFFFFCE8F12CF
+            8F0DCF8F0BCE8E10F9FCFDF6F7F9F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F6F6F9FDFFE7CB98CB8600D09111D09111CD8900D8A743FEFFFFF9FC
+            FFF6F7FAF8FCFFFDFFFFF7F8F9F8FEFFF6F7F9F9FCFFFEFFFFDAAB48CD8800D0
+            9111D09111CB8600E7CB98F9FDFFF7F6F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7FAFFFFD5A23BCD8C05D09111D09111D09111CC8700D59D31EEE2
+            C7F9F8EFECDCBBD39C32DCAD62E8CFA1F6F2E3EBDCBDD59F33CB8700D09111D0
+            9111D09111CD8C05D5A23BFAFFFFF7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F6F7F7F8F9FFFFCC8A04CF8F0DD09111D09111D09111D09111CD8B05CB85
+            00CE8F0CC98200D39C3EE1BC7BDEB871ECDDB9D6A240C98000D09112D09111D0
+            9111D09111CF8F0DCC8A04F9FFFFF7F7F8F7F7F6F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F6F7F7FBF7FAF9C67B00D09112D09111D09111D09111D09111CE8D08CE8E
+            08CB8905FBFFFFFEFFFFF4F4F3F8FCFEC57500E3C48ED9AC52CE8C07D09111D0
+            9111D09111D09112C67B00F7FAF9F7F7FBF7F7F6F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F6F7F8FBF7F8F7C57700D09212D09111D09111CF9010CC8800D5A036CE8C
+            11E8D09DF9FEFFF6F6F6F7F7F9F9FDFFEAD4A1D0963BE1C07CCA8400CF900FD0
+            9111D09111D09212C57700F7F8F7F7F8FBF7F7F6F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F6F7F8FBF7F8F9C67B00D09112D09111D09111CD8901E3C07CFFFFFFDAAA
+            4BF7FCFFF7F7F9F7F7F6F7F7F6F7F7F8FAFEFFD7A440FFFFFFE5C585CC8901D0
+            9111D09111D09112C67B00F7FAF9F7F7FBF7F7F6F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F6F7F7F8F9FFFFCC8A04CF8F0DD09111CF900FCC8A07F7F7F4FDFFFFE1C0
+            79F9FEFFF7F6F6F7F7F7F7F7F7F7F6F6F9FFFFE1BF76FCFFFFF7F7F7CD8A08CF
+            900FD09111CF8F0DCC8A04F9FFFFF7F7F8F7F7F6F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7FAFFFFD5A23BCD8C05D09111D09111CD8D07D39B2AF5F4ECDFB6
+            6AFBFFFFF6F6F6F7F7F7F7F7F7F6F6F6FBFFFFDFB76CF6F5EFD59E33CD8C06D0
+            9111D09111CD8C05D5A23BFAFFFFF7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F6F6F9FDFFE7CB98CB8600D09111D09111D09111CB8600DCB25ED6A3
+            51F7F8F1F7F9FCF6F6F6F6F6F6F7F8FBF8FBF8D6A14EDDB361CB8600D09111D0
+            9111D09111CB8600E7CB98F9FDFFF7F6F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F6F7F9F9FCFDCE8E10CF8F0BD09111D09111CE8E0BD39B2BF4EE
+            DDD39B33F9FCFEFBFFFFFBFFFFF9FDFFD39C37F5EEDED59E2FCE8E0BD09111D0
+            9111CF8F0BCE8E10F9FCFDF6F7F9F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F6F6FAFEFFE9D4ABC88000D09111D09111D09111CB8500E8CF
+            9EF2E5CED5A03EDEB563E0B96CD7A341F2E5CDEAD4A9CA8400D09111D09111D0
+            9111C87F00E9D4ABFAFEFFF7F6F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7FAFFFFDDB361C98100D09111D09111D09110C881
+            00E4C68DFDFFFFF9F7F3FAF8F2FEFFFFE6CB9AC98100D09010D09111D09111C9
+            8100DDB361FAFFFFF7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F6F7F7F7F6F8FCFFFFD9AB4DCA8200D0910FD09111D091
+            10CB8600CD8C09D39A26D49F32CE8F0ECB8600D09010D09111D0910FCA8200D9
+            AB4DFCFFFFF7F6F8F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F6F7F7F7F6F8FAFEFFE3C68EC87E00CD8A01CF8F
+            0DD09212CF900FCE8E0BCE8D08CF900ED09212CF8F0DCD8A01C87E00E4C68EFA
+            FEFFF7F6F8F6F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F8FAFFFFF7F8F6DCB464CE8C
+            0CC57A00CA8400CC8700CC8700CA8400C57A00CE8C0CDCB465F7F8F6FAFFFFF7
+            F7F8F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F6F6F6F7F8FBF9FFFFF8F8
+            F3F2EADAE5CC92E0BB6FE0BB6FE5CC92F2EADAF8F8F3F9FFFFF7F8FBF6F6F6F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F6F6F7F7F7F6F7
+            F9F8F9FEF9FFFFFAFFFFFAFFFFF9FFFFF8F9FEF6F7F9F7F7F7F7F6F6F7F7F7F7
+            F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7}
+          OnClick = SpeedButton7Click
         end
         object Panel3: TPanel
           AlignWithMargins = True
           Left = 9
           Top = 9
-          Width = 648
+          Width = 690
           Height = 113
           Margins.Left = 8
           Margins.Top = 8
@@ -235,9 +442,8 @@ object frmPrincipal: TfrmPrincipal
           Margins.Bottom = 8
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 604
           DesignSize = (
-            648
+            690
             113)
           object Label5: TLabel
             Left = 194
@@ -256,6 +462,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'Tempo Monitor'
             NumbersOnly = True
             TabOrder = 0
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object LabeledEdit1: TLabeledEdit
@@ -268,6 +475,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'Tempo Seg.'
             NumbersOnly = True
             TabOrder = 1
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object chk_AutoResposta: TCheckBox
@@ -276,6 +484,8 @@ object frmPrincipal: TfrmPrincipal
             Width = 133
             Height = 17
             Caption = 'Auto Resposta (BOT)'
+            Checked = True
+            State = cbChecked
             TabOrder = 2
             OnClick = Edt_DDIPDRExit
             OnExit = Edt_DDIPDRExit
@@ -283,13 +493,12 @@ object frmPrincipal: TfrmPrincipal
           object ComboBox1: TComboBox
             Left = 194
             Top = 19
-            Width = 442
+            Width = 484
             Height = 22
             Style = csOwnerDrawFixed
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 3
             OnExit = Edt_DDIPDRExit
-            ExplicitWidth = 398
           end
         end
         object Pnl_FONE: TPanel
@@ -309,6 +518,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'Digitos DDD'
             NumbersOnly = True
             TabOrder = 0
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object Edt_LengDDI: TLabeledEdit
@@ -321,6 +531,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'Digitos DDI'
             NumbersOnly = True
             TabOrder = 1
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object Edt_LengFone: TLabeledEdit
@@ -333,6 +544,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'Digitos Fone'
             NumbersOnly = True
             TabOrder = 2
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object Edt_DDIPDR: TLabeledEdit
@@ -345,6 +557,7 @@ object frmPrincipal: TfrmPrincipal
             EditLabel.Caption = 'DDI Padr'#227'o'
             NumbersOnly = True
             TabOrder = 3
+            Text = ''
             OnExit = Edt_DDIPDRExit
           end
           object CheckBox4: TCheckBox
@@ -365,8 +578,8 @@ object frmPrincipal: TfrmPrincipal
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 324
-        Height = 399
+        Width = 366
+        Height = 493
         Align = alLeft
         BorderStyle = bsSingle
         Caption = 'Panel2'
@@ -375,10 +588,10 @@ object frmPrincipal: TfrmPrincipal
         ShowCaption = False
         TabOrder = 1
         DesignSize = (
-          322
-          397)
+          364
+          491)
         object whatsOn: TImage
-          Left = 108
+          Left = 150
           Top = 149
           Width = 103
           Height = 104
@@ -1700,9 +1913,10 @@ object frmPrincipal: TfrmPrincipal
             1F4D8D4CFCA7E9D5DB0000000049454E44AE426082}
           Visible = False
           OnClick = whatsOnClick
+          ExplicitLeft = 108
         end
         object whatsOff: TImage
-          Left = 108
+          Left = 150
           Top = 149
           Width = 103
           Height = 104
@@ -2970,9 +3184,10 @@ object frmPrincipal: TfrmPrincipal
             7220CDDEE5D423FBCF77E3FE3F527CBEE0FE538A1B7D0A483BA37F02BDEEF7C0
             09F9C2C10000000049454E44AE426082}
           ShowHint = False
+          ExplicitLeft = 108
         end
         object lblStatus: TLabel
-          Left = 108
+          Left = 150
           Top = 108
           Width = 98
           Height = 35
@@ -2984,11 +3199,12 @@ object frmPrincipal: TfrmPrincipal
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          ExplicitLeft = 108
         end
         object Label3: TLabel
           Left = 1
-          Top = 287
-          Width = 320
+          Top = 381
+          Width = 362
           Height = 80
           Align = alBottom
           Alignment = taCenter
@@ -3003,6 +3219,7 @@ object frmPrincipal: TfrmPrincipal
           Visible = False
           WordWrap = True
           ExplicitTop = 259
+          ExplicitWidth = 320
         end
         object SpeedButton1: TSpeedButton
           Left = 4
@@ -3597,8 +3814,8 @@ object frmPrincipal: TfrmPrincipal
         end
         object SpeedButton3: TSpeedButton
           Left = 1
-          Top = 367
-          Width = 320
+          Top = 461
+          Width = 362
           Height = 29
           Align = alBottom
           BiDiMode = bdLeftToRight
@@ -3687,17 +3904,16 @@ object frmPrincipal: TfrmPrincipal
     object TabSheet3: TTabSheet
       Caption = 'A'#231#245'es Manuais / Actions'
       ImageIndex = 2
-      ExplicitWidth = 960
       object groupEnvioMsg: TGroupBox
         Left = 0
         Top = 0
         Width = 249
-        Height = 405
+        Height = 499
         Align = alLeft
         TabOrder = 0
         DesignSize = (
           249
-          405)
+          499)
         object Label1: TLabel
           Left = 5
           Top = 7
@@ -3708,13 +3924,13 @@ object frmPrincipal: TfrmPrincipal
         object Label2: TLabel
           Left = 5
           Top = 49
-          Width = 227
+          Width = 167
           Height = 13
-          Caption = 'Texto ou contato(sem @c.us) / Text or contact'
+          Caption = 'Texto ou contato / Text or contact'
         end
         object Label6: TLabel
           Left = 5
-          Top = 120
+          Top = 111
           Width = 47
           Height = 13
           Caption = 'Video Link'
@@ -3723,14 +3939,14 @@ object frmPrincipal: TfrmPrincipal
           Left = 5
           Top = 68
           Width = 238
-          Height = 51
+          Height = 69
           Anchors = [akLeft, akTop, akBottom]
           TabOrder = 1
         end
         object btSendTextAndFile: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 220
+          Top = 314
           Width = 239
           Height = 25
           Align = alBottom
@@ -3739,12 +3955,11 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 2
           OnClick = btSendTextAndFileClick
-          ExplicitWidth = 208
         end
         object btSendText: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 189
+          Top = 283
           Width = 239
           Height = 25
           Align = alBottom
@@ -3753,7 +3968,6 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 3
           OnClick = btSendTextClick
-          ExplicitWidth = 208
         end
         object ed_num: TComboBox
           Left = 4
@@ -3770,7 +3984,6 @@ object frmPrincipal: TfrmPrincipal
           OnChange = ed_numChange
           OnKeyUp = ed_numKeyUp
           OnSelect = ed_numSelect
-          ExplicitWidth = 208
         end
         object CheckBox5: TCheckBox
           Left = 125
@@ -3784,7 +3997,7 @@ object frmPrincipal: TfrmPrincipal
         object btStatusBat: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 375
+          Top = 469
           Width = 239
           Height = 25
           Align = alBottom
@@ -3792,13 +4005,11 @@ object frmPrincipal: TfrmPrincipal
           ImageIndex = 0
           Images = ImageList1
           TabOrder = 5
-          OnClick = btStatusBatClick
-          ExplicitWidth = 208
         end
         object btSendContact: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 251
+          Top = 345
           Width = 239
           Height = 25
           Align = alBottom
@@ -3807,12 +4018,11 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 6
           OnClick = btSendContactClick
-          ExplicitWidth = 208
         end
         object btCheckNumber: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 344
+          Top = 438
           Width = 239
           Height = 25
           Align = alBottom
@@ -3821,12 +4031,11 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 7
           OnClick = btCheckNumberClick
-          ExplicitWidth = 208
         end
         object btIsConnected: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 158
+          Top = 190
           Width = 239
           Height = 25
           Align = alBottom
@@ -3835,12 +4044,11 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 8
           OnClick = btIsConnectedClick
-          ExplicitWidth = 208
         end
         object btSendLocation: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 313
+          Top = 407
           Width = 239
           Height = 25
           Align = alBottom
@@ -3849,12 +4057,11 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 9
           OnClick = btSendLocationClick
-          ExplicitWidth = 208
         end
         object btSendLinkWithPreview: TButton
           AlignWithMargins = True
           Left = 5
-          Top = 282
+          Top = 376
           Width = 239
           Height = 25
           Align = alBottom
@@ -3863,32 +4070,55 @@ object frmPrincipal: TfrmPrincipal
           Images = ImageList1
           TabOrder = 10
           OnClick = btSendLinkWithPreviewClick
-          ExplicitWidth = 208
         end
         object ed_videoLink: TEdit
           Left = 5
-          Top = 134
+          Top = 151
           Width = 238
           Height = 21
           TabOrder = 11
+        end
+        object btSendTextButton: TButton
+          AlignWithMargins = True
+          Left = 5
+          Top = 252
+          Width = 239
+          Height = 25
+          Align = alBottom
+          Caption = 'Enviar Texto com bot'#245'es / Buttons text'
+          ImageIndex = 0
+          Images = ImageList1
+          TabOrder = 12
+          OnClick = btSendTextButtonClick
+        end
+        object btSendButtonList: TButton
+          AlignWithMargins = True
+          Left = 5
+          Top = 221
+          Width = 239
+          Height = 25
+          Align = alBottom
+          Caption = 'Enviar bot'#227'o com lista / Send button with list'
+          ImageIndex = 0
+          Images = ImageList1
+          TabOrder = 13
+          OnClick = btSendButtonListClick
         end
       end
       object Panel1: TPanel
         Left = 249
         Top = 0
-        Width = 755
-        Height = 405
+        Width = 839
+        Height = 499
         Align = alClient
         BevelOuter = bvNone
         Caption = 'Panel1'
         ShowCaption = False
         TabOrder = 1
-        ExplicitLeft = 218
-        ExplicitWidth = 742
         object Splitter1: TSplitter
           Left = 481
           Top = 0
-          Height = 405
+          Height = 499
           ExplicitLeft = 240
           ExplicitTop = 72
           ExplicitHeight = 100
@@ -3897,7 +4127,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 484
           Top = 0
           Width = 241
-          Height = 405
+          Height = 499
           Align = alLeft
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -3930,7 +4160,7 @@ object frmPrincipal: TfrmPrincipal
             Left = 5
             Top = 49
             Width = 231
-            Height = 351
+            Height = 445
             Align = alClient
             Columns = <>
             LargeImages = ImageList1
@@ -3948,7 +4178,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 252
           Top = 0
           Width = 229
-          Height = 405
+          Height = 499
           Align = alLeft
           TabOrder = 1
           object Panel4: TPanel
@@ -3984,7 +4214,7 @@ object frmPrincipal: TfrmPrincipal
             Left = 5
             Top = 49
             Width = 219
-            Height = 351
+            Height = 445
             Align = alClient
             Columns = <>
             LargeImages = ImageList1
@@ -4002,7 +4232,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 252
-          Height = 405
+          Height = 499
           Align = alLeft
           TabOrder = 2
           object lblNumeroConectado: TLabel
@@ -4062,7 +4292,7 @@ object frmPrincipal: TfrmPrincipal
           object btCleanChat: TButton
             AlignWithMargins = True
             Left = 5
-            Top = 313
+            Top = 407
             Width = 242
             Height = 25
             Align = alBottom
@@ -4075,7 +4305,7 @@ object frmPrincipal: TfrmPrincipal
           object btGetMe: TButton
             AlignWithMargins = True
             Left = 5
-            Top = 375
+            Top = 469
             Width = 242
             Height = 25
             Align = alBottom
@@ -4088,7 +4318,7 @@ object frmPrincipal: TfrmPrincipal
           object btnTestCheckNumber: TButton
             AlignWithMargins = True
             Left = 5
-            Top = 344
+            Top = 438
             Width = 242
             Height = 25
             Align = alBottom
@@ -4101,7 +4331,7 @@ object frmPrincipal: TfrmPrincipal
           object btGetSeveralStatus: TButton
             AlignWithMargins = True
             Left = 5
-            Top = 282
+            Top = 376
             Width = 242
             Height = 25
             Align = alBottom
@@ -4114,7 +4344,7 @@ object frmPrincipal: TfrmPrincipal
           object btGetStatus: TButton
             AlignWithMargins = True
             Left = 5
-            Top = 251
+            Top = 345
             Width = 242
             Height = 25
             Align = alBottom
@@ -4165,18 +4395,30 @@ object frmPrincipal: TfrmPrincipal
               TextHint = 'Inf. Desejada Aqui'
             end
           end
+          object btnConsoleClear: TButton
+            AlignWithMargins = True
+            Left = 5
+            Top = 314
+            Width = 242
+            Height = 25
+            Align = alBottom
+            Caption = 'Limpar console / console clear'
+            ImageIndex = 0
+            Images = ImageList1
+            TabOrder = 6
+            OnClick = btnConsoleClearClick
+          end
         end
       end
     end
     object TabSheet4: TTabSheet
       Caption = 'Logs'
       ImageIndex = 3
-      ExplicitWidth = 960
       DesignSize = (
-        1004
-        405)
+        1088
+        499)
       object Image2: TImage
-        Left = 660
+        Left = 744
         Top = 32
         Width = 328
         Height = 329
@@ -4204,16 +4446,15 @@ object frmPrincipal: TfrmPrincipal
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 998
+        Width = 1082
         Height = 17
         Align = alTop
         Caption = 'Apagar mensagens ap'#243's receber'
         TabOrder = 1
         OnExit = Edt_DDIPDRExit
-        ExplicitWidth = 954
       end
       object Button1: TButton
-        Left = 890
+        Left = 974
         Top = 1
         Width = 98
         Height = 25
@@ -4221,31 +4462,28 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Get profile image'
         TabOrder = 2
         OnClick = Button1Click
-        ExplicitLeft = 846
       end
       object ed_profilePicThumbURL: TEdit
         Left = 192
         Top = 3
-        Width = 692
+        Width = 776
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
         TextHint = 'ProfilePicThumbURL'
-        ExplicitWidth = 648
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'A'#231#245'es em grupo /  Group actions'
       ImageIndex = 3
-      ExplicitWidth = 960
       object Panel5: TPanel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 998
-        Height = 399
+        Width = 1082
+        Height = 493
         Align = alClient
         BorderStyle = bsSingle
         Caption = 'Pnl_Config'
@@ -4253,10 +4491,9 @@ object frmPrincipal: TfrmPrincipal
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitWidth = 954
         DesignSize = (
-          996
-          397)
+          1080
+          491)
         object lbl_idGroup: TLabel
           Left = 11
           Top = 109
@@ -4298,7 +4535,7 @@ object frmPrincipal: TfrmPrincipal
           AlignWithMargins = True
           Left = 9
           Top = 9
-          Width = 978
+          Width = 1062
           Height = 90
           Margins.Left = 8
           Margins.Top = 8
@@ -4306,7 +4543,6 @@ object frmPrincipal: TfrmPrincipal
           Margins.Bottom = 8
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 934
           object Image3: TImage
             Left = 843
             Top = 0
@@ -4996,7 +5232,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 11
           Top = 125
           Width = 232
-          Height = 269
+          Height = 363
           Anchors = [akLeft, akTop, akBottom]
           Columns = <>
           LargeImages = ImageList1
@@ -5013,7 +5249,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 249
           Top = 224
           Width = 199
-          Height = 170
+          Height = 264
           Anchors = [akLeft, akTop, akBottom]
           Columns = <>
           LargeImages = ImageList1
@@ -5175,13 +5411,25 @@ object frmPrincipal: TfrmPrincipal
           TabOrder = 15
           OnClick = btnRemoveGroupLinkClick
         end
+        object btnSendPool: TButton
+          AlignWithMargins = True
+          Left = 651
+          Top = 212
+          Width = 191
+          Height = 25
+          Caption = 'Enviar enquete / Send pool'
+          ImageIndex = 0
+          Images = ImageList1
+          TabOrder = 16
+          OnClick = btnRemoveGroupLinkClick
+        end
       end
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 452
-    Width = 1018
+    Top = 546
+    Width = 1102
     Height = 19
     Panels = <
       item
@@ -5192,7 +5440,6 @@ object frmPrincipal: TfrmPrincipal
         Text = 'Offline'
         Width = 50
       end>
-    ExplicitWidth = 974
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Imagens|*jpg;*.jpg;*.bmp;*.png;*.pdf;*.mp4;*.mp3;*.rar'
@@ -5267,7 +5514,6 @@ object frmPrincipal: TfrmPrincipal
     Top = 94
   end
   object TInject1: TInject
-    InjectJS.AutoUpdate = False
     InjectJS.AutoUpdateTimeOut = 20
     Config.AutoDelay = 30
     Config.ReceiveAttachmentAuto = False
@@ -5283,21 +5529,23 @@ object frmPrincipal: TfrmPrincipal
     OnGetQrCode = TInject1GetQrCode
     OnGetChatList = TInject1GetChatList
     OnGetUnReadMessages = TInject1GetUnReadMessages
+    OnGetUnReadMessagesFromMe = TInject1GetUnReadMessagesFromMe
     OnGetAllGroupContacts = TInject1GetAllGroupContacts
     OnGetStatus = TInject1GetStatus
     OnGetBatteryLevel = TInject1GetBatteryLevel
     OnIsConnected = TInject1IsConnected
-    OnLowBattery = TInject1LowBattery
     OnGetCheckIsValidNumber = TInject1GetCheckIsValidNumber
     OnGetProfilePicThumb = TInject1GetProfilePicThumb
     OnGetMyNumber = TInject1GetMyNumber
+    OnDisconnected = TInject1Disconnected
     OnDisconnectedBrute = TInject1DisconnectedBrute
     OnErroAndWarning = TInject1ErroAndWarning
     OnGetStatusMessage = TInject1GetStatusMessage
     OnGetInviteGroup = TInject1GetInviteGroup
     OnGetMe = TInject1GetMe
     OnNewGetNumber = TInject1NewGetNumber
-    Left = 720
-    Top = 256
+    OnGetIncomingCall = TInject1GetIncomingCall
+    Left = 192
+    Top = 320
   end
 end

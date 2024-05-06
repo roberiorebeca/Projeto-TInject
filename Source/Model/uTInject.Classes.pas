@@ -18,20 +18,12 @@
 ####################################################################################################################
                                   Evolução do Código
 ####################################################################################################################
-  Autor........:
-  Email........:
-  Data.........:
-  Identificador:
-  Modificação..:
-
   Autor........: Luiz Alves
   Email........: cprmlao@gmail.com
   Data.........: 17/12/2019
   Identificador: @LuizAlvez
   Modificação..: Adicionadas novas propriedades das mensagens conforme verificação com o LOG
-
-####################################################################################################################
-}
+####################################################################################################################}
 
 unit uTInject.Classes;
 
@@ -45,7 +37,7 @@ uses Generics.Collections, Rest.Json, uTInject.FrmQRCode, Vcl.Graphics, System.I
     Vcl.IdAntiFreeze,
   {$ENDIF}
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, Vcl.Imaging.jpeg,
-  IdSSLOpenSSL, UrlMon;
+  IdSSLOpenSSL, UrlMon, system.JSON;
 
 type
 
@@ -103,6 +95,7 @@ type
     Property JsonOption  : TJsonOptions   Read FJsonOption;
     Property JsonString  : String         Read FJsonString;
     function ToJsonString: string;
+    procedure RemoveObjectsFromJson(var json: TJSONObject);
   end;
 
   TClassPadraoString = class(TClassPadrao)
@@ -386,6 +379,20 @@ type
     property valid : boolean  read Fvalid write Fvalid;
   end;
 
+  TIncomingCall = class(TClassPadrao)
+  private
+    FID: String;
+  public
+    property ID : string read FID write FID;
+  end;
+
+  TReturnIncomingCall = class(TClassPadrao)
+  private
+   FContact : string;
+  public
+    constructor Create(pAJsonString: string);
+    property contact : string read FContact write FContact;
+  end;
 
  TGetMeClass = class(TClassPadrao)
    private
@@ -523,6 +530,7 @@ type
     FT               : Extended;
     FNotifyName      : String;
     FFrom            : String;
+    FFromMe          : Boolean;
     FTo              : String;
     FSelf            : String;
     FAck             : Extended;
@@ -585,6 +593,7 @@ type
     property Caption    : String              Read FCaption            Write FCaption;
     property content    : String              read FContent            write FContent;
     property from       : String              read FFrom               write FFrom;
+    property fromMe     : Boolean             read FFromMe             write FFromMe;
     property id         : String              read FId                 write FId;
     property invis      : Boolean             read FInvis              write FInvis;
     property isForwarded: Boolean             read FIsForwarded        write FIsForwarded;
@@ -774,7 +783,8 @@ private
   FId           : String;
   FIsBusiness   : Boolean;
   FIsEnterprise : Boolean;
-  FIsMe         : Boolean;
+  //FIsMe         : Boolean; deprecated
+  FFromMe       : Boolean;
   FIsMyContact  : Boolean;
   FIsPSA        : Boolean;
   FIsUser       : Boolean;
@@ -798,7 +808,8 @@ public
   property id:              String         read FId               write FId;
   property isBusiness:      Boolean        read FIsBusiness       write FIsBusiness;
   property isEnterprise:    Boolean        read FIsEnterprise     write FIsEnterprise;
-  property isMe:            Boolean        read FIsMe             write FIsMe;
+  //property isMe:            Boolean        read FIsMe             write FIsMe; deprecated
+  property fromMe:          Boolean        read FFromMe           write FFromMe;
   property isMyContact:     Boolean        read FIsMyContact      write FIsMyContact;
   property isPSA:           Boolean        read FIsPSA            write FIsPSA;
   property isUser:          Boolean        read FIsUser           write FIsUser;
@@ -821,7 +832,8 @@ implementation
 
 
 uses
-  System.JSON, System.SysUtils, Vcl.Dialogs, System.NetEncoding,
+  //System.JSON, System.SysUtils, Vcl.Dialogs, System.NetEncoding,
+  System.SysUtils, Vcl.Dialogs, System.NetEncoding,
   Vcl.Imaging.pngimage, uTInject.ConfigCEF, Vcl.Forms, Winapi.Windows,
   uTInject.Diversos;
 
@@ -880,7 +892,7 @@ begin
 end;
 
 function TResultQRCodeClass.CreateImage: Boolean;
-{$IFNDEF VER330}
+{$IF CompilerVersion >= 31}
 var
     PNG: TpngImage;
 {$ENDIF}
@@ -891,21 +903,24 @@ begin
        Exit;
 
     FreeAndNil(FAQrCodeImage);
-    FAQrCodeImage  := TPicture.Create;       
+    FAQrCodeImage  := TPicture.Create;
     FAQrCodeImageStream.Position := 0;
-    
-    {$IFDEF VER330}
+
+   {$IF CompilerVersion >= 31}
       FAQrCodeImage.LoadFromStream(FAQrCodeImageStream);
-   {$ELSE}
+      result := True;
+   {$ENDIF}
+
+   {$IF CompilerVersion < 31}
       PNG := TPngImage.Create;
       try
         Png.LoadFromStream(FAQrCodeImageStream);
         FAQrCodeImage.Graphic := PNG;
+        result := True;
       finally
         PNG.Free;
       end;
    {$ENDIF}
-    result := True;
   Except
   end;
 end;
@@ -1112,19 +1127,48 @@ end;
 constructor TClassPadrao.Create(pAJsonString: string; PJsonOption: TJsonOptions);
 var
   lAJsonObj: TJSONValue;
-begin
 
+  //Autor: Daniel Valmir Serafim -->
+  function IsResultArray(const jsonString: string): Boolean;
+  var
+    jsonObject: TJSONObject;
+    resultValue: TJSONValue;
+    resultArray: TJSONArray;
+  begin
+    Result := False;
+
+    // Converte a string JSON para um objeto JSON
+    jsonObject := TJSONObject.ParseJSONValue(jsonString) as TJSONObject;
+
+    try
+      // Verifica se o objeto JSON possui a chave "result"
+      if Assigned(jsonObject) and jsonObject.TryGetValue<TJSONValue>('result', resultValue) then
+      begin
+        // Verifica se o valor associado à chave "result" é um array
+        if Assigned(resultValue) and (resultValue is TJSONArray) then
+          Result := True;
+      end;
+    finally
+      jsonObject.Free;
+    end;
+  end;
+  //Autor: Daniel Valmir Serafim <--
+
+begin
   lAJsonObj      := TJSONObject.ParseJSONValue(pAJsonString);
   FInjectWorking := False;
+
   try
    try
     if NOT Assigned(lAJsonObj) then
        Exit;
 
-    //tentar thread aqui...
-    TJson.JsonToObject(Self, TJSONObject(lAJsonObj) ,PJsonOption);
-    //tentar thread aqui...
+    {$IFDEF VER360}
+    if IsResultArray(pAJsonString) then
+      RemoveObjectsFromJson(TJSONObject(lAJsonObj));
+    {$ENDIF}
 
+    TJson.JsonToObject(Self, TJSONObject(lAJsonObj) ,PJsonOption);
 
     FJsonString := pAJsonString;
           SleepNoFreeze(10);
@@ -1142,6 +1186,47 @@ begin
   end;
 end;
 
+//Autor: Daniel Valmir Serafim -->
+procedure TClassPadrao.RemoveObjectsFromJson(var json: TJSONObject);
+var
+  resultArray: TJsonArray;
+  chatObject, messageObject: TJSONObject;
+  messageArray: TJSONArray;
+begin
+  try
+  // Verifica se o JSON contém a chave "result" e se é um array
+  if json.TryGetValue<TJsonArray>('result', resultArray) then
+  begin
+    // Itera sobre os elementos do array
+    for var i := 0 to resultArray.Count - 1 do
+    begin
+      // Obtém o objeto de chat
+      chatObject := resultArray.Items[i] as TJSONObject;
+      // Remove os objetos específicos do chat
+      chatObject.RemovePair('tcToken');
+//      chatObject.RemovePair('chat');
+      // Verifica se o chat contém mensagens
+      if chatObject.TryGetValue<TJsonArray>('messages', messageArray) then
+      begin
+        // Itera sobre as mensagens do chat
+        for var j := 0 to messageArray.Count - 1 do
+        begin
+          // Obtém o objeto de mensagem
+          messageObject := messageArray.Items[j] as TJSONObject;
+          // Remove o objeto de mediaData da mensagem
+          messageObject.RemovePair('mediaData');
+          messageObject.RemovePair('chat');
+        end;
+      end;
+    end;
+  end;
+  Except
+     on E : Exception do
+       LogAdd(e.Message, 'ERROR ' + SELF.ClassName);
+   end;
+end;
+//Autor: Daniel Valmir Serafim <--
+
 destructor TClassPadrao.Destroy;
 begin
   inherited;
@@ -1158,10 +1243,6 @@ var
   I: Integer;
 begin
    try
-   {$IFDEF VER340}
-      PArray := nil;
-   {$ENDIF}
-
     for i:= Length(PArray)-1 downto 0 do
         {$IFDEF VER300}
           freeAndNil(PArray[i]);
@@ -1169,6 +1250,18 @@ begin
 
         {$IFDEF VER330}
           freeAndNil(PArray[i]);
+        {$ENDIF}
+
+        {$IFDEF VER340}
+          freeAndNil(TArray<TClassPadrao>(PArray)[i]);
+        {$ENDIF}
+
+        {$IFDEF VER350}
+          freeAndNil(TArray<TClassPadrao>(PArray)[i]);
+        {$ENDIF}
+
+        {$IFDEF VER360}
+          freeAndNil(TArray<TClassPadrao>(PArray)[i]);
         {$ENDIF}
    finally
      SetLength(PArray, 0);
@@ -1470,6 +1563,35 @@ constructor TResponseIsDelivered.Create(pAJsonString: string);
 begin
   inherited Create(pAJsonString);
   //FResult := (Copy (FResult, Pos ('@c.us_', FResult) + 2, Length (FResult)));
+end;
+
+{ TReturnIncomingCall }
+
+constructor TReturnIncomingCall.Create(pAJsonString: string);
+var
+  lAJsonObj: TJSONValue;
+  aJson: TJSONObject;
+begin
+  lAJsonObj      := TJSONObject.ParseJSONValue(pAJsonString);
+
+  if NOT Assigned(lAJsonObj) then
+    Exit;
+
+  {$IF COMPILERVERSION > 31}
+  try
+    FContact := lAJsonObj.FindValue('result').Value;
+  finally
+    freeAndNil(lAJsonObj);
+  end;
+  {$ELSE}
+  try
+    aJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(pAJsonString), 0) as TJSONObject;
+    FContact := aJson.GetValue('result').Value;
+  finally
+    freeAndNil(aJson)
+  end;
+  {$ENDIF}
+
 end;
 
 end.

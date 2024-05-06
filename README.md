@@ -1,11 +1,11 @@
-﻿# Componente TInject
+﻿# TInject Community
 ## Componente mais RECIFENSE da internet!<br>
 Componente para criação de chatBots com delphi<br>
 <i>Component for creating chatBots with delphi</i><br></br>
 
 ## INSTRUÇÕES PARA USO DO COMPONENTE<br></br>
 
-Compatibilidade testada nas versões do Delphi: Seattle, Berlim, Tokyo, Rio, Sydney.<br></br>
+Delphi versions: Seattle, Berlin, Tokyo, Rio, Sydney, Alexandria.<br></br>
 
 ### Tutorial de instalação no youtube:<br>
 https://www.youtube.com/watch?v=EIxFdtenNxI&t=31s
@@ -21,7 +21,7 @@ https://youtu.be/cbWW7VNYwEo
 <br><br>
 
 Instalação manual:<br><br>
-### NOVO: Para usar com o delphi 10.4 Sydney, incluir no library path 32 bits a pasta <b>Compilados</b> e suas subpastas.<br><br>
+### NOVO: Para usar com o delphi 11 Alexandria, incluir no library path 32 bits a pasta <b>Compilados</b> e suas subpastas.<br><br>
 1-Clonar o repositório Projeto-TInject
 <br></br>
 2-Baixar e instalar o CEF4Delphi em: http://www.softmaisbrasil.com.br/#blog
@@ -39,9 +39,15 @@ Instalação manual:<br><br>
 8-Abra o arquivo demo Tinject.dproj
 <br></br>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mikelustosa/Projeto-TInject&type=Date)](https://star-history.com/#mikelustosa/Projeto-TInject&Date)
+
+
 ### Recursos / Resources<br><br>
 ✔️  Login<br>
 ✔️  Logout<br>
+✔️  Enviar mensagens de texto com botões - Send text message with buttons (NEW)<br>
 ✔️  Enviar mensagens de texto para números fora da agenda- Send text message<br>
 ✔️  Enviar mensagens para grupos - Send group messages<br>
 ✔️  Enviar contatos - Send phone contacts<br>
@@ -49,11 +55,11 @@ Instalação manual:<br><br>
 ✔️  Enviar MP4 - Send MP4<br>
 ✔️  Enviar IMG - Send IMG<br>
 ✔️  Enviar RAR - Send RAR<br>
-✔️  Enviar Link com prévia - Sending and preview<br>
+❌  Enviar Link com prévia - Sending and preview<br>
 ✔️  Enviar localização - Location sending<br>
 ✔️  Listar contatos - Contact list<br>
 ✔️  Listar bate papos - Conversation list<br>
-✔️  Status da bateria - Battery status<br>
+❌  Status da bateria - Battery status<br>
 ✔️  Simular digitando - Typing simulation<br>
 ✔️  Recebimento de novas mensagem - Receiving new messages<br>
 ✔️  Configurações de DDI - International number configuration<br>
@@ -62,14 +68,16 @@ Instalação manual:<br><br>
 ✔️  Download de arquivos - Download files<br>
 ✔️  Download da foto de perfil - Download profile picture<br>
 ✔️  Criar grupo - Create group<br>
-✔️  Sair do grupo - Leave the group<br>
-✔️  Adicionar participante ao grupo - Add participant to the group<br>
-✔️  Remover participante do grupo - Remove group member<br>
-✔️  Promover participante adminstrador do grupo - Promote participant group administrator<br>
-✔️  Despromover participanete adminstrador do grupo - Demote participating group administrator<br>
+❌  Sair do grupo - Leave the group<br>
+❌  Adicionar participante ao grupo - Add participant to the group<br>
+❌  Remover participante do grupo - Remove group member<br>
+❌  Promover participante adminstrador do grupo - Promote participant group administrator<br>
+❌  Despromover participanete adminstrador do grupo - Demote participating group administrator<br>
 ✔️  Listar todos os grupos - List all groups<br>
 ✔️  Listar participantes do grupo - List group participants<br>
 ✔️  Entrar em grupo via link convite - Join group via invitation link<br>
+❌  Enviar botões na conversa - Send buttons in chat(Not functional in WhatsApp Multi devices Beta)<br>
+✔️  Criar enquetes. Create Pool<br>
 
 ### Cursos do componente / Component lessions:<br>
 
@@ -80,7 +88,7 @@ Nota 1: O TInject é de código aberto desenvolvido em comunidade, e não possui
 <br><br>
 Nota 2: Desenvolvido no rad studio 10.3.0 (RIO).<br><br> 
 
-#### Doações / Donations: ag 2193 op 013 cp 2833-7 Caixa Econômica
+#### Doações via PIX / Donations PIX: comercial.softmais@gmail.com
 
 <br><br>
 

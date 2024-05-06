@@ -2,8 +2,8 @@ object FrmConsole: TFrmConsole
   Left = 0
   Top = 0
   Caption = 'TInject component'
-  ClientHeight = 519
-  ClientWidth = 885
+  ClientHeight = 516
+  ClientWidth = 873
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -11,7 +11,6 @@ object FrmConsole: TFrmConsole
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   ShowHint = True
   OnClose = FormClose
@@ -19,13 +18,12 @@ object FrmConsole: TFrmConsole
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object Pnl_Top: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 494
-    Width = 879
+    Top = 491
+    Width = 867
     Height = 22
     Align = alBottom
     BorderStyle = bsSingle
@@ -37,11 +35,12 @@ object FrmConsole: TFrmConsole
     object Lbl_Caption: TLabel
       Left = 1
       Top = 1
-      Width = 90
-      Height = 13
+      Width = 773
+      Height = 18
+      Cursor = crHandPoint
       Align = alClient
       Alignment = taCenter
-      Caption = 'TInject component'
+      Caption = 'TInject show dev tools'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clSilver
       Font.Height = -11
@@ -49,10 +48,13 @@ object FrmConsole: TFrmConsole
       Font.Style = []
       ParentFont = False
       Layout = tlCenter
+      OnClick = Lbl_CaptionClick
+      ExplicitWidth = 109
+      ExplicitHeight = 13
     end
     object lbl_Versao: TLabel
       AlignWithMargins = True
-      Left = 789
+      Left = 777
       Top = 4
       Width = 82
       Height = 12
@@ -365,6 +367,7 @@ object FrmConsole: TFrmConsole
         426082}
       Proportional = True
       Transparent = True
+      OnClick = Img_LogoInjectClick
       OnMouseEnter = lbl_VersaoMouseEnter
     end
     object Img_Brasil: TImage
@@ -440,8 +443,8 @@ object FrmConsole: TFrmConsole
     AlignWithMargins = True
     Left = 3
     Top = 1
-    Width = 879
-    Height = 487
+    Width = 867
+    Height = 484
     Margins.Top = 1
     Align = alClient
     BevelOuter = bvNone
@@ -453,11 +456,10 @@ object FrmConsole: TFrmConsole
     object CEFWindowParent1: TCEFWindowParent
       Left = 0
       Top = 0
-      Width = 879
+      Width = 867
       Height = 121
       Align = alTop
       TabOrder = 0
-      ExplicitTop = 41
     end
   end
   object Chromium1: TChromium
@@ -471,8 +473,8 @@ object FrmConsole: TFrmConsole
     OnBeforeClose = Chromium1BeforeClose
     OnClose = Chromium1Close
     OnOpenUrlFromTab = Chromium1OpenUrlFromTab
-    Left = 56
-    Top = 136
+    Left = 48
+    Top = 152
   end
   object CEFSentinel1: TCEFSentinel
     OnClose = CEFSentinel1Close
